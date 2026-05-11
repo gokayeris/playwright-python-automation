@@ -8,6 +8,9 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    # Esta línea elimina la advertencia al forzar Node 24
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
     - uses: actions/checkout@v4
 
@@ -24,15 +27,13 @@ jobs:
         playwright install --with-deps
 
     - name: Run tests
-      # Agregamos parámetros para generar el reporte HTML
       run: python -m pytest --html=report.html --self-contained-html
       env:
         SAUCE_USER: ${{ secrets.SAUCE_USER }}
         SAUCE_PASSWORD: ${{ secrets.SAUCE_PASSWORD }}
 
     - name: Upload Test Report
-      # Esto hace que el reporte se suba incluso si los tests fallan
-      if: always() 
+      if: always()
       uses: actions/upload-artifact@v4
       with:
         name: playwright-report
