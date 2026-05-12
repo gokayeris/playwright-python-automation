@@ -1,16 +1,18 @@
+from playwright.sync_api import Page
+
+
 class LoginPage:
-    def __init__(self, page):
+    def __init__(self, page: Page):
         self.page = page
-        # Definimos los selectores como atributos de la clase
-        self.username_input = page.get_by_placeholder("Username")
-        self.password_input = page.get_by_placeholder("Password")
-        self.login_button = page.get_by_role("button", name="Login")
+        self.username_input = page.locator("[data-test='username']")
+        self.password_input = page.locator("[data-test='password']")
+        self.login_button = page.locator("[data-test='login-button']")
         self.error_message = page.locator("[data-test='error']")
 
     def navegar(self):
         self.page.goto("https://www.saucedemo.com/")
 
-    def realizar_login(self, usuario, clave):
-        self.username_input.fill(usuario)
-        self.password_input.fill(clave)
+    def realizar_login(self, user, password):
+        self.username_input.fill(user)
+        self.password_input.fill(password)
         self.login_button.click()

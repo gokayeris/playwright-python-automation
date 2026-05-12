@@ -1,63 +1,68 @@
-# Playwright & Python - Full-Stack Automation Framework 🚀
+Playwright & Python - Full-Stack Automation Framework 🚀
+========================================================
 
-![Playwright Tests](https://github.com/gokayeris/playwright-python-automation/actions/workflows/playwright.yml/badge.svg)
+Este repositorio contiene una arquitectura de pruebas automatizadas de nivel profesional, diseñada para ser escalable, mantenible y de alto rendimiento. El framework cubre tanto la interfaz de usuario (UI) como la validación de servicios web (API).
 
-This repository features a professional-grade automated testing architecture designed for scalability, maintainability, and high performance. It covers both User Interface (UI) and Web Service (API) validation.
+🚀 Características Principales
+------------------------------
 
-## 🚀 Key Features
-- **Page Object Model (POM):** Complete decoupling between application logic and test scripts for easier maintenance.
-- **API Testing (REST):** Full coverage of HTTP methods (**GET, POST, PUT, DELETE**) including schema validation and data persistence checks.
-- **Evidence Management:** Automated, organized screenshots for rapid debugging and reporting.
-- **CI/CD Pipeline:** Fully integrated with GitHub Actions (Node.js 24 / Python 3.11) for automated execution on every push.
-- **Security:** Secure credential management using environment variables (`.env`) and GitHub Secrets.
-- **Reporting:** Detailed, self-contained HTML reports generated automatically after each run.
+*   **Page Object Model (POM):** Desacoplamiento completo entre la lógica de la aplicación y los scripts de prueba para facilitar el mantenimiento.
+    
+*   **Pruebas de API (REST):** Cobertura completa de métodos HTTP (**GET, POST, PUT, DELETE**) utilizando Playwright Request Context.
+    
+*   **Gestión de Evidencias:** Captura automatizada de **Screenshots y Videos** ante fallos para una depuración rápida.
+    
+*   **Pipeline CI/CD:** Integración total con GitHub Actions (Node.js 24 / Python 3.11) para ejecución automática en cada push.
+    
+*   **Reportes Profesionales:** Generación de reportes HTML detallados y autocontenidos después de cada ejecución.
+    
 
-## 📂 Project Structure
-- `.github/workflows/`: Continuous Integration (CI/CD) pipeline configuration.
-- `pages/`: Page Object classes encapsulating UI elements and actions.
-- `tests/`: Test suites categorized by type (UI / API).
-- `screenshots/`: Visual evidence captured during test execution.
-- `requirements.txt`: List of project dependencies.
+📂 Estructura del Proyecto
+--------------------------
 
-## 🛠️ Installation & Local Usage
+*   .github/workflows/: Configuración del pipeline de Integración Continua (CI).
+    
+*   pages/: Clases Page Object que encapsulan los elementos y acciones de la UI (e.g., LoginPage, InventoryPage).
+    
+*   tests/: Suites de pruebas categorizadas:
+    
+    *   test\_ui\_login.py: Flujos de autenticación (casos positivos y negativos).
+        
+    *   test\_ui\_purchase.py: Flujo de fin a fin (E2E) de compra en la tienda.
+        
+    *   test\_api.py: Validaciones de servicios REST.
+        
+    *   test\_connectivity.py: Smoke tests de conectividad inicial.
+        
+    *   test\_trigger\_failure.py: Test de control diseñado para validar la captura de evidencias.
+        
+*   requirements.txt: Lista de dependencias del proyecto.
+    
+*   pytest.ini: Configuración global de ejecución y evidencias.
+    
 
-1. **Clone the repository:**
-   ```bash
-   git clone [https://github.com/gokayeris/playwright-python-automation.git](https://github.com/gokayeris/playwright-python-automation.git)
-   cd playwright-python-automation
-   ```
-2. **Install dependencies:**
-   ```bash
-   pip install playwright pytest pytest-html python-dotenv
-   playwright install
-   ```
-3. **Configure Environment Variables:**
-   Create a .env file in the root directory with your credentials:
-   ```Plaintext
-   SAUCE_USER=your_user
-   SAUCE_PASSWORD=your_password
-   ```
-4. **Run Tests:**
-   Create a .env file in the root directory with your credentials:
-   ```Bash
-   # Run all tests with HTML report
-   pytest --html=report.html --self-contained-html
-   ```
+🛠️ Instalación y Uso Local
+---------------------------
 
-## 📈 Continuous Integration (CI/CD)
-The framework is powered by GitHub Actions. Upon every push to the main branch, the pipeline:
+1.  Bashgit clone https://github.com/gokayeris/playwright-python-automation.gitcd playwright-python-automation
+    
+2.  Bashpip install -r requirements.txtplaywright install
+    
+3.  PlaintextSAUCE\_USER=standard\_userSAUCE\_PASSWORD=secret\_sauce
+    
+4.  Bash# Ejecutar todos los tests y generar reportepytest --html=reporte\_final.html --self-contained-html
+    
 
-1. Provisions a clean Ubuntu environment.
+📈 Gestión de Evidencias
+------------------------
 
-2. Installs Python 3.11 and necessary browser binaries.
+El framework está configurado para proporcionar visibilidad total sobre los fallos:
 
-3. Executes the full test suite.
+*   **Screenshots:** Se guardan automáticamente en la carpeta screenshots/ cuando un test falla.
+    
+*   **Videos:** Se retienen grabaciones de la sesión ante fallos en la carpeta test-results/.
+    
+*   **Test de Validación:** El archivo test\_trigger\_failure.py asegura que el sistema de reportes esté siempre operativo.
+    
 
-4. Generates and uploads the final HTML report as a downloadable Build Artifact.
-
-Developed by Gokay Eris - QA Automation Engineer.
-
-### 💡 Final Tips for your Repository:
-* **Secrets:** I see you've already started adding `SAUCE_USER` in your GitHub settings. Make sure `SAUCE_PASSWORD` is also there so the "9 passed" result we saw in your reports remains consistent.
-* **Node.js Warning:** By using the `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true` environment variable we discussed, that yellow warning about Node.js 20 will disappear from your **Actions** summary.
-* **Artifacts:** After the next run, you'll be able to find the `playwright-report` directly in the **Summary** page of your GitHub Action, just like it appears in your local browser.
+Desarrollado por **Gokay Eris** - QA Automation Engineer.
