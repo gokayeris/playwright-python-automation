@@ -5,25 +5,29 @@ on:
   pull_request:
     branches: [ main ]
 
-# Forzamos Node 24 de forma global para eliminar definitivamente los warnings amarillos
+# Variables globales para silenciar avisos y forzar versiones modernas
 env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE20: true
 
 jobs:
   test:
     runs-on: ubuntu-latest
-    # --- ACTIVACIÓN DE MULTI-BROWSER ---
     strategy:
+      # Esto lanza 3 ejecuciones simultáneas: una por cada navegador
       matrix:
         browser: [chromium, firefox, webkit]
-    # --------------------------------------
+      fail-fast: false # Permite que si falla un navegador, los otros sigan corriendo
+
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4.2.2
 
     - name: Set up Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v5.3.0
       with:
         python-version: '3.11'
+        cache: 'pip' # Cache automático de librerías de Python
 
     - name: Install dependencies
       run: |
@@ -40,7 +44,7 @@ jobs:
       run: playwright install --with-deps
 
     - name: Run tests on ${{ matrix.browser }}
-      # Usamos la variable ${{ matrix.browser }} para que cada job use su navegador
+      # -n 2 activa los 2 núcleos de GitHub para paralelismo interno
       run: python -m pytest -n 2 --browser ${{ matrix.browser }} --html=report-${{ matrix.browser }}.html --self-contained-html
       env:
         SAUCE_USER: ${{ secrets.SAUCE_USER }}
@@ -48,7 +52,7 @@ jobs:
 
     - name: Upload Test Report
       if: always()
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v4.4.3
       with:
         name: report-${{ matrix.browser }}
         path: report-${{ matrix.browser }}.html
