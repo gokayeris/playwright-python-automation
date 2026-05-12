@@ -56,3 +56,8 @@ The framework is powered by GitHub Actions. Upon every push to the main branch, 
 4. Generates and uploads the final HTML report as a downloadable Build Artifact.
 
 Developed by Gokay Eris - QA Automation Engineer.
+
+### 💡 Final Tips for your Repository:
+* **Secrets:** I see you've already started adding `SAUCE_USER` in your GitHub settings. Make sure `SAUCE_PASSWORD` is also there so the "9 passed" result we saw in your reports remains consistent.
+* **Node.js Warning:** By using the `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true` environment variable we discussed, that yellow warning about Node.js 20 will disappear from your **Actions** summary.
+* **Artifacts:** After the next run, you'll be able to find the `playwright-report` directly in the **Summary** page of your GitHub Action, just like it appears in your local browser.
