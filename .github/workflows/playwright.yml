@@ -49,7 +49,7 @@ jobs:
 
     - name: Run tests on ${{ matrix.browser }}
       # -n 2 activa el paralelismo interno aprovechando los 2 núcleos del procesador
-      run: python -m pytest -n 2 --browser ${{ matrix.browser }} --html=report-${{ matrix.browser }}.html --self-contained-html
+      run: python -m pytest -n 2 --browser ${{ matrix.browser }} --screenshot=only-on-failure --video=retain-on-failure --html=report-${{ matrix.browser }}.html --self-contained-html
       env:
         SAUCE_USER: ${{ secrets.SAUCE_USER }}
         SAUCE_PASSWORD: ${{ secrets.SAUCE_PASSWORD }}
